@@ -144,6 +144,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .step h3 { font-size: clamp(1.7rem, 2.8vw, 2.3rem); font-weight: 700; letter-spacing: -0.025em; }
 .step p { color: var(--muted); }
 .eq { font-family: var(--font-head); font-weight: 600; color: var(--ink); white-space: nowrap; }
+.when { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; font-size: 0.92rem; color: var(--ink) !important; border-top: 1px solid var(--line); padding-top: 12px; margin-top: 4px; }
+.when span { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
 .tip { font-size: 0.9rem; border-top: 1px solid var(--line); padding-top: 12px; margin-top: 4px; }
 
 /* stage timeline: follows the scroll story; corners concentric with its own padding */
@@ -151,7 +153,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .tl.away { opacity: 0; transform: translate(16px, -50%); pointer-events: none; }
 .tl .track { position: relative; }
 .tl ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; position: relative; }
-.tl .track::before, .tl .fill { content: ""; position: absolute; left: 19px; top: 21px; bottom: 21px; width: 2px; border-radius: 1px; background: var(--line); }
+.tl .track::before, .tl .fill { content: ""; position: absolute; left: 19px; top: 30px; bottom: 30px; width: 2px; border-radius: 1px; background: var(--line); }
 .tl .fill { background: var(--accent); transform-origin: 50% 0; transform: scaleY(var(--p, 0)); }
 .tl button { position: relative; z-index: 1; display: flex; align-items: center; gap: 12px; width: 100%; padding: 10px 16px 10px 13px; border: 0; border-radius: calc(var(--r-tl) - var(--pad-tl)); background: transparent; color: var(--muted); font: 500 0.92rem var(--font-body); text-align: left; cursor: pointer; transition: background .25s var(--ease), color .25s var(--ease); white-space: nowrap; }
 .tl button:hover { background: rgba(255, 255, 255, 0.05); color: var(--ink); }
@@ -159,6 +161,14 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .tl li.done i { background: var(--accent); border-color: var(--accent); }
 .tl li.on button { color: var(--ink); background: rgba(147, 226, 236, 0.09); }
 .tl li.on i { border-color: var(--accent); background: #0a1c27; box-shadow: 0 0 0 4px rgba(147, 226, 236, 0.16), 0 0 14px rgba(147, 226, 236, 0.45); }
+.tl .t { display: grid; gap: 1px; }
+.tl .n { font-weight: 600; }
+.tl .d { font-size: 0.8rem; color: var(--faint); font-variant-numeric: tabular-nums; }
+.tl li.on .d, .tl li.done .d { color: var(--muted); }
+.tl .ds { display: none; }
+.tl-total { margin: 6px 0 0; padding: 12px 13px 4px; border-top: 1px solid var(--line); font-size: 0.82rem; color: var(--muted); line-height: 1.45; }
+.tl-total b { color: var(--ink); font-weight: 600; }
+.tl-total span { color: var(--faint); font-size: 0.75rem; }
 @media (max-width: 900px) {
   .tl { --r-tl: 20px; --pad-tl: 6px; top: calc(env(safe-area-inset-top, 0px) + 82px); left: var(--gut); right: var(--gut-r); transform: none; }
   .tl.away { transform: translateY(-10px); }
@@ -167,6 +177,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .tl .fill { transform-origin: 0 50%; transform: scaleX(var(--p, 0)); }
   .tl button { flex-direction: column; gap: 5px; padding: 8px 2px 7px; font-size: 0.72rem; text-align: center; justify-content: center; }
   .tl i { width: 12px; height: 12px; }
+  .tl .dl { display: none; } .tl .ds { display: inline; } .tl .d { font-size: 0.66rem; } .tl .n { font-weight: 500; }
+  .tl-total { display: none; }
   .step { align-items: flex-end; padding-bottom: 12vh; }
 }
 
@@ -350,7 +362,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <div class="head">
           <p class="eyebrow">How it works</p>
           <h2 id="how-h">Watch a green pool come back</h2>
-          <p class="lede">Keep scrolling. The water behind this page goes through the same recovery your pool would.</p>
+          <p class="lede">Keep scrolling. The water behind this page goes through the same recovery your pool would, and the timeline shows how long each step usually takes. Typical times; always follow the product label.</p>
         </div>
       </div>
       <div class="steps" id="steps">
@@ -358,27 +370,37 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           <span class="num">01 · The problem</span>
           <h3>A green pool</h3>
           <p>Algae is thriving on phosphate. Test first: a reading over a few hundred ppb means algae has plenty to feed on.</p>
+        
+          <p class="when"><span>Time</span>Testing takes about 5 minutes</p>
         </div></div></div>
         <div class="step"><div class="wrap" style="width:100%"><div class="panel glass">
           <span class="num">02 · Shock</span>
           <h3>Kill the algae with chlorine</h3>
           <p>Shock does the killing. The water turns dull and cloudy as dead algae hangs in it, but the phosphate is still there.</p>
+        
+          <p class="when"><span>Time</span>Overnight, usually 12–24 hours</p>
         </div></div></div>
         <div class="step"><div class="wrap" style="width:100%"><div class="panel glass">
           <span class="num">03 · Treat</span>
           <h3>Add <span class="ph">Element 57</span></h3>
           <p>With the pump running, pour it in front of a return jet. Lanthanum binds phosphate (<span class="eq">La³⁺ + PO₄³⁻ → LaPO₄</span>), and the water turns briefly milky as that solid forms.</p>
+        
+          <p class="when"><span>Time</span>About 10 minutes to add. Haze appears within hours</p>
         </div></div></div>
         <div class="step"><div class="wrap" style="width:100%"><div class="panel glass">
           <span class="num">04 · Filter</span>
           <h3>Let the filter do the rest</h3>
           <p>Run the filter until the haze clears. Vacuum anything that settles, then clean or backwash the filter.</p>
           <p class="tip">Cartridge filters catch the solid fast, so check them more often during treatment.</p>
+        
+          <p class="when"><span>Time</span>24–48 hours of continuous filtering</p>
         </div></div></div>
         <div class="step"><div class="wrap" style="width:100%"><div class="panel glass">
           <span class="num">05 · Clear</span>
           <h3>Clear, with nothing to feed on</h3>
           <p>Retest. With phosphate under 100 ppb and chlorine kept in range, algae has very little to grow back on.</p>
+        
+          <p class="when"><span>Time</span>Retest on day 2 to 4</p>
         </div></div></div>
       </div>
     </section>
@@ -530,12 +552,13 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 <nav class="tl away" id="tl" aria-label="Treatment stages">
   <div class="track"><b class="fill" aria-hidden="true"></b>
   <ol>
-    <li><button type="button" data-i="0"><i aria-hidden="true"></i><span>Green pool</span></button></li>
-    <li><button type="button" data-i="1"><i aria-hidden="true"></i><span>Shock</span></button></li>
-    <li><button type="button" data-i="2"><i aria-hidden="true"></i><span>Treat</span></button></li>
-    <li><button type="button" data-i="3"><i aria-hidden="true"></i><span>Filter</span></button></li>
-    <li><button type="button" data-i="4"><i aria-hidden="true"></i><span>Clear</span></button></li>
+    <li><button type="button" data-i="0"><i aria-hidden="true"></i><span class="t"><span class="n">Test</span><span class="d"><span class="dl">5 min</span><span class="ds">5 min</span></span></span></button></li>
+    <li><button type="button" data-i="1"><i aria-hidden="true"></i><span class="t"><span class="n">Shock</span><span class="d"><span class="dl">Overnight, 12–24 hrs</span><span class="ds">12–24 h</span></span></span></button></li>
+    <li><button type="button" data-i="2"><i aria-hidden="true"></i><span class="t"><span class="n">Treat</span><span class="d"><span class="dl">About 10 min to add</span><span class="ds">10 min</span></span></span></button></li>
+    <li><button type="button" data-i="3"><i aria-hidden="true"></i><span class="t"><span class="n">Filter</span><span class="d"><span class="dl">24–48 hrs of filtering</span><span class="ds">24–48 h</span></span></span></button></li>
+    <li><button type="button" data-i="4"><i aria-hidden="true"></i><span class="t"><span class="n">Clear</span><span class="d"><span class="dl">Retest on day 2–4</span><span class="ds">Day 2–4</span></span></span></button></li>
   </ol></div>
+  <p class="tl-total"><b>About 2–4 days</b> start to finish<br><span>Typical times. Check the product label.</span></p>
 </nav>
 
 <div class="status away" id="status" aria-hidden="true">
